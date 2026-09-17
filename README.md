@@ -78,6 +78,7 @@ Coisas ainda marcadas como placeholder no `index.html` (busca-e-substitui):
 
 ## Domínio e contato
 
+- **CNPJ:** 69.028.376/0001-00
 - **Domínio:** duarttestech.com (HostGator)
 - **E-mail:** contato@duarttestech.com
 - **Instagram:** @duarttes.tech
