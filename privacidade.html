@@ -2,36 +2,55 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FCFDFD" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='11' fill='%23F1F8F9'/%3E%3Crect x='12' y='9.5' width='6' height='29' rx='3' fill='%230B8A93'/%3E%3Cpath d='M15.5 12.5C33 12.5 39.5 17.5 39.5 24S33 35.5 15.5 35.5' fill='none' stroke='%230B8A93' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='39.5' cy='24' r='3.4' fill='%231E6F9F'/%3E%3C/svg%3E" />
 <title>Política de Privacidade — Duarttes Tech</title>
 <meta name="description" content="Como a Duarttes Tech trata dados pessoais: quais dados, de onde vêm, para que servem e como pedir a remoção." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
 <style>
-  :root{ --tinta:#1B2A31; --muted:#5C7079; --teal-deep:#0E6B6F; --linha:#E2ECEE; --papel:#fff; }
+  :root{
+    color-scheme:light;
+    --bg:#FCFDFD; --bg-2:#F1F8F9; --line:rgba(13,42,48,.11);
+    --ink:#0F1F25; --muted:#4F676F; --dim:#586F77; --teal:#097C84;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --display:"Bricolage Grotesque",var(--sans);
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--papel);color:var(--tinta);
-       font:16px/1.7 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-  .wrap{max-width:46rem;margin:0 auto;padding:0 22px}
-  header{border-bottom:1px solid var(--linha);padding:22px 0}
-  header a{color:var(--teal-deep);text-decoration:none;font-weight:700}
-  main{padding:44px 0 64px}
-  h1{font-size:clamp(28px,5vw,38px);line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
-  .sub{color:var(--muted);margin:0 0 36px}
-  h2{font-size:20px;margin:36px 0 10px;letter-spacing:-.01em}
-  ul{padding-left:20px}
-  li{margin:6px 0}
-  a{color:var(--teal-deep)}
-  .box{background:#F3F9FA;border:1px solid var(--linha);border-radius:12px;padding:18px 20px;margin:28px 0}
-  footer{border-top:1px solid var(--linha);padding:28px 0;color:var(--muted);font-size:14px}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7}
+  .wrap{max-width:46rem;margin:0 auto;padding-inline:clamp(20px,5vw,32px)}
+  header{border-bottom:1px solid var(--line);padding:20px 0;position:sticky;top:0;background:rgba(252,253,253,.85);backdrop-filter:blur(12px);padding-top:calc(20px + env(safe-area-inset-top,0px))}
+  header a{display:inline-flex;align-items:center;gap:9px;color:var(--teal);text-decoration:none;font-weight:600;font-size:15px}
+  header svg{width:22px;height:22px}
+  main{padding:clamp(40px,7vw,64px) 0 72px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  h1{font-family:var(--display);font-size:clamp(32px,6vw,46px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:14px 0 10px;text-wrap:balance}
+  .sub{color:var(--dim);margin:0 0 40px;font-size:15px}
+  h2{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.02em;margin:40px 0 10px}
+  p{margin:0 0 14px;color:var(--muted);text-wrap:pretty}
+  ul{padding-left:20px;margin:0 0 14px;color:var(--muted)}
+  li{margin:7px 0}
+  b{color:var(--ink)}
+  a{color:var(--teal);text-underline-offset:3px}
+  .box{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:30px 0;color:var(--muted)}
+  .box b{display:block;margin-bottom:6px;color:var(--ink)}
+  footer{border-top:1px solid var(--line);background:var(--bg-2);padding:28px 0 calc(28px + env(safe-area-inset-bottom,0px));color:var(--dim);font-size:13px}
+  .footer-linhas{display:flex;flex-wrap:wrap;gap:6px 18px}
+  .nowrap{white-space:nowrap}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap"><a href="/">← Duarttes Tech</a></div>
+  <div class="wrap"><a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span translate="no">Duarttes Tech</span></a></div>
 </header>
 
 <main>
   <div class="wrap">
+    <p class="mono">Transparência</p>
     <h1>Política de Privacidade</h1>
     <p class="sub">Última atualização: setembro de 2026.</p>
 
@@ -123,7 +142,12 @@
 </main>
 
 <footer>
-  <div class="wrap">© Duarttes Tech · <span translate="no" style="white-space:nowrap">CNPJ&nbsp;69.028.376/0001-00</span> · <a href="/">Início</a></div>
+  <div class="wrap footer-linhas">
+    <span>© <span translate="no">Duarttes Tech</span></span>
+    <span translate="no" class="nowrap">CNPJ&nbsp;69.028.376/0001-00</span>
+    <span>Americana/SP</span>
+    <a href="/">Início</a>
+  </div>
 </footer>
 
 </body>

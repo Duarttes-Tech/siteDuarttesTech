@@ -2,507 +2,739 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Duarttes Tech · Infraestrutura digital para empresas</title>
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-<meta name="description" content="A Duarttes Tech constrói, opera e monitora a presença digital da sua empresa: sites, WhatsApp automático, suporte por SLA (GLPI) e monitoramento 24/7 (Zabbix + Grafana)." />
+<meta name="description" content="A Duarttes Tech constrói, opera e monitora a presença digital da sua empresa: sites, WhatsApp, Google, suporte com SLA e monitoramento. Americana/SP." />
+<meta name="theme-color" content="#FCFDFD" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='11' fill='%23F1F8F9'/%3E%3Crect x='12' y='9.5' width='6' height='29' rx='3' fill='%230B8A93'/%3E%3Cpath d='M15.5 12.5C33 12.5 39.5 17.5 39.5 24S33 35.5 15.5 35.5' fill='none' stroke='%230B8A93' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='39.5' cy='24' r='3.4' fill='%231E6F9F'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --teal:#12B5BE;
-    --teal-deep:#0E97A0;
-    --sky:#46C5F5;
-    --grad:linear-gradient(100deg,#12B5BE,#46C5F5);
-    --ink:#20313A;
-    --slate:#2C3E47;
-    --slate-2:#25353D;
-    --muted:#66787F;
-    --bg:#FFFFFF;
-    --bg-soft:#F1F9FA;
-    --card:#FFFFFF;
-    --line:#E4EEEF;
-    --line-soft:#EEF5F6;
-    --radius:16px;
-    --maxw:1140px;
+    color-scheme:light;
+    --bg:#FCFDFD;
+    --bg-2:#F1F8F9;
+    --panel:#FFFFFF;
+    --panel-2:#F7FBFC;
+    --line:rgba(13,42,48,.11);
+    --line-2:rgba(13,42,48,.22);
+    --ink:#0F1F25;
+    --muted:#4F676F;
+    --dim:#586F77;
+    --teal:#097C84;
+    --teal-vivo:#12B5BE;
+    --sky:#1E6F9F;
+    --warn:#9A6100;
+    --maxw:1180px;
+    --pad:clamp(20px,5vw,40px);
     --ease:cubic-bezier(.2,.7,.2,1);
-    --shadow:0 24px 50px -30px rgba(18,120,130,.28);
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --display:"Bricolage Grotesque",var(--sans);
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   }
+
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
-  h1,h2,h3{font-weight:800;line-height:1.1;letter-spacing:-.02em;margin:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;touch-action:manipulation}
   p{margin:0}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1,h2,h3{margin:0;font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.03em;text-wrap:balance}
+  ::selection{background:var(--teal);color:#fff}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
 
-  .btn{display:inline-flex;align-items:center;gap:9px;font-family:inherit;font-weight:700;font-size:15.5px;padding:13px 22px;border-radius:12px;border:1.5px solid transparent;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s,background .2s,border-color .2s,color .2s}
-  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 12px 26px -12px rgba(18,181,190,.75)}
-  .btn-primary:hover{background:var(--teal-deep);transform:translateY(-2px)}
-  .btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
-  .btn-ghost:hover{border-color:var(--teal);color:var(--teal-deep)}
-  .btn-light{background:#fff;color:var(--ink)}
-  .btn-light:hover{transform:translateY(-2px)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+  .skip{position:fixed;left:12px;top:-80px;background:var(--teal);color:#fff;padding:10px 16px;border-radius:0 0 10px 10px;font-weight:600;z-index:100;transition:top .2s var(--ease)}
+  .skip:focus{top:0}
 
-  /* Nav */
-  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-  .brand .mark{width:27px;height:27px}
-  .brand b{color:var(--teal);font-weight:800}
-  .nav-links{display:flex;gap:30px;align-items:center}
-  .nav-links a{font-size:15px;color:var(--muted);font-weight:600;transition:color .2s}
+  /* ---------- tipografia utilitária ---------- */
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .mono b{color:var(--teal);font-weight:500}
+  .lead{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:58ch;text-wrap:pretty}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* ---------- barra de progresso do scroll ---------- */
+  .progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:60;background:linear-gradient(90deg,var(--teal),var(--sky));transform-origin:0 50%;transform:scaleX(0)}
+  @supports (animation-timeline:scroll()){
+    .progress{animation:grow linear both;animation-timeline:scroll(root block)}
+  }
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+  /* ---------- topo ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;background:rgba(252,253,253,.82);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:20px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em}
+  .brand svg{width:26px;height:26px;flex:none}
+  .brand span{color:var(--teal)}
+  .nav-links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+  .nav-links a{position:relative;padding:4px 0;transition:color .2s var(--ease)}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--teal);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s var(--ease)}
   .nav-links a:hover{color:var(--ink)}
-  .nav-cta{display:flex;align-items:center;gap:14px}
-  .menu-btn{display:none;background:none;border:0;cursor:pointer;padding:6px}
-  .menu-btn span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-right{display:flex;align-items:center;gap:12px}
 
-  /* Hero */
-  .hero{position:relative;padding:88px 0 92px;overflow:hidden}
-  .hero::before{content:"";position:absolute;top:-180px;right:-140px;width:620px;height:560px;background:radial-gradient(closest-side,rgba(70,197,245,.20),transparent 72%);z-index:0}
-  .hero::after{content:"";position:absolute;bottom:-160px;left:-120px;width:460px;height:420px;background:radial-gradient(closest-side,rgba(18,181,190,.13),transparent 72%);z-index:0}
-  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.04fr .96fr;gap:56px;align-items:center}
-  .hero h1{font-size:clamp(38px,5.2vw,60px);margin:18px 0 0;color:var(--ink)}
-  .hero-sub{font-size:19px;color:var(--muted);margin-top:22px;max-width:37ch}
-  .hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
-  .hero-trust{margin-top:26px;font-size:13.5px;color:var(--muted);font-weight:600;letter-spacing:.01em}
-  .hero-trust b{color:var(--teal-deep);font-weight:700}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:13px 22px;border-radius:999px;font-size:15px;font-weight:600;
+    border:1px solid transparent;cursor:pointer;white-space:nowrap;
+    transition:transform .2s var(--ease),background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease);
+  }
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 0 0 0 rgba(11,138,147,.35)}
+  .btn-primary:hover{background:#066A71;transform:translateY(-2px);box-shadow:0 12px 28px -14px rgba(11,138,147,.75)}
+  .btn-ghost{border-color:var(--line-2);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
+  .btn:hover svg{transform:translateX(3px)}
 
-  /* Hero status card */
-  .hcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
-  .hc-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:15px;border-bottom:1px solid var(--line-soft)}
-  .hc-title{font-size:13px;color:var(--muted);font-weight:600}
-  .hc-live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-deep)}
-  .pulse{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(18,181,190,.5);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,181,190,.5)}70%{box-shadow:0 0 0 8px rgba(18,181,190,0)}100%{box-shadow:0 0 0 0 rgba(18,181,190,0)}}
-  .hc-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line-soft)}
-  .hc-row:last-of-type{border-bottom:0}
-  .hc-svc{display:flex;align-items:center;gap:11px;font-size:14.5px;font-weight:500}
-  .hc-dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 7px rgba(18,181,190,.6)}
-  .hc-val{font-size:13px;color:var(--muted);font-weight:600}
-  .hc-val b{color:var(--ink);font-weight:700}
-  .spark{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:14px}
-  .spark i{flex:1;background:var(--grad);border-radius:2px;opacity:.9;animation:bar 2.4s ease-in-out infinite}
-  @keyframes bar{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
-  .hc-foot{margin-top:12px;font-size:12px;color:var(--muted);text-align:right;font-weight:600}
+  .menu-btn{display:none;width:42px;height:42px;border:1px solid var(--line-2);background:none;border-radius:11px;padding:0;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .menu-btn span{display:block;width:17px;height:1.5px;background:var(--ink);transition:transform .25s var(--ease),opacity .25s var(--ease)}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-  /* Sections */
-  section{padding:92px 0}
-  .soft{background:var(--bg-soft)}
-  .sec-head{max-width:60ch}
-  .sec-head.center{margin:0 auto;text-align:center}
-  .sec-head h2{font-size:clamp(27px,3.5vw,40px);margin-top:13px;color:var(--ink)}
-  .sec-head p.lead{color:var(--muted);font-size:18px;margin-top:14px}
+  /* ---------- seções ---------- */
+  section{padding:clamp(72px,10vw,128px) 0;border-top:1px solid var(--line);position:relative}
+  .sec-head{max-width:46rem;margin-bottom:clamp(40px,6vw,64px)}
+  .sec-head h2{font-size:clamp(30px,4.6vw,50px);margin:14px 0 16px}
+  .sec-head .lead{margin-top:6px}
 
-  /* Pillars */
-  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
-  .pillar{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s}
-  .pillar:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-  .pillar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
-  .pillar .ix{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--teal)}
-  .pillar h3{font-size:22px;margin:12px 0 10px;color:var(--ink)}
-  .pillar p{color:var(--muted);font-size:15px}
+  /* ---------- hero ---------- */
+  .hero{border-top:0;padding:clamp(56px,8vw,104px) 0 clamp(64px,8vw,104px);position:relative;isolation:isolate}
+  .hero::before{
+    content:"";position:absolute;inset:-20% 0 auto 0;height:120%;z-index:-1;
+    background:radial-gradient(70% 55% at 12% 0%,rgba(18,181,190,.16),transparent 70%),
+               radial-gradient(55% 48% at 92% 8%,rgba(30,111,159,.08),transparent 70%);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(70% 60% at 30% 20%,#000,transparent 75%);
+    mask-image:radial-gradient(70% 60% at 30% 20%,#000,transparent 75%);
+    opacity:.5;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center}
+  .hero h1{font-size:clamp(36px,5.6vw,66px)}
+  .hero h1 em{font-style:normal;position:relative;white-space:nowrap}
+  .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.1em;background:var(--teal);opacity:.85;transform:scaleX(0);transform-origin:0 50%;animation:underline .8s .5s var(--ease) forwards}
+  @keyframes underline{to{transform:scaleX(1)}}
+  .hero-sub{margin-top:22px;color:var(--muted);font-size:clamp(16px,2.1vw,20px);max-width:48ch;text-wrap:pretty}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:28px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  .hero-trust span{display:inline-flex;align-items:center;gap:7px}
+  .hero-trust span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--teal)}
 
-  /* Services */
-  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
-  .svc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
-  .svc:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#D5EBEC}
-  /* Selo de roadmap. Servico prometido como pronto e o jeito mais rapido de
-     transformar o primeiro cliente no primeiro detrator -- o que ainda nao
-     entregamos fica marcado, nao escondido. */
-  .svc.breve{opacity:.72}
-  .svc .tag-breve{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;
-    text-transform:uppercase;color:#7A6A00;background:#FFF3C4;border:1px solid #F2E08A;
-    padding:3px 9px;border-radius:100px;margin-bottom:8px}
-  .svc-sub{margin:26px 0 14px;font-size:13px;font-weight:800;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--muted)}
-  .svc .ico{width:50px;height:50px;border-radius:14px;background:#E6F7F8;display:grid;place-items:center;margin-bottom:18px}
-  .svc .ico svg{width:26px;height:26px;stroke:var(--teal);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  .svc h3{font-size:18px;margin-bottom:8px;color:var(--ink)}
-  .svc p{color:var(--muted);font-size:14.5px}
+  /* ---------- painel do hero ---------- */
+  .panel{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:0 30px 70px -45px rgba(13,42,48,.45)}
+  .panel-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);background:rgba(13,42,48,.03)}
+  .panel-top .t{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:5px 9px;border-radius:999px;border:1px solid var(--line-2);color:var(--dim);flex:none}
+  .prow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .prow .k{display:flex;align-items:center;gap:10px;color:var(--muted);min-width:0}
+  .prow .k::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--warn);flex:none}
+  .prow .v{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;flex:none}
+  .prow .v b{color:var(--warn);font-weight:500}
+  .spark{display:flex;align-items:flex-end;gap:4px;height:58px;padding:18px 18px 12px}
+  .spark i{flex:1;background:linear-gradient(180deg,var(--teal-vivo),rgba(18,181,190,.3));border-radius:2px;height:var(--h);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s var(--ease)}
+  .in .spark i{transform:scaleY(1)}
+  .panel-foot{padding:12px 18px 16px;font-size:13px;color:var(--dim);border-top:1px solid var(--line)}
 
-  /* Steps */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:46px}
-  .step{padding:26px 22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);border-top:3px solid var(--teal)}
-  .step .n{font-size:14px;font-weight:800;color:var(--teal);font-variant-numeric:tabular-nums}
-  .step h3{font-size:17px;margin:10px 0 8px;color:var(--ink)}
-  .step p{color:var(--muted);font-size:14px}
+  /* ---------- faixa de números ---------- */
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .strip div{background:var(--bg-2);padding:26px 22px}
+  .strip .n{font-family:var(--display);font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .strip .l{color:var(--dim);font-size:14px;margin-top:4px;text-wrap:pretty}
 
-  /* Plans */
-  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px;align-items:start}
-  .plan{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;position:relative;box-shadow:0 10px 30px -26px rgba(18,120,130,.3)}
-  .plan.feat{border-color:var(--teal);box-shadow:0 30px 55px -30px rgba(18,181,190,.5)}
-  .plan .badge{position:absolute;top:-12px;left:26px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--grad);color:#fff;padding:6px 12px;border-radius:100px}
-  .plan .pname{font-size:20px;font-weight:800;color:var(--ink)}
-  .plan .ptag{color:var(--muted);font-size:14px;margin-top:5px;min-height:40px}
-  .plan .price{margin:16px 0 2px;font-size:15px;color:var(--muted);font-weight:600}
-  .plan .price b{font-size:34px;color:var(--ink);font-weight:800;letter-spacing:-.02em}
-  .plan .price small{font-size:14px;color:var(--muted);font-weight:600}
-  .plan .sla{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--teal-deep);background:#E6F7F8;padding:7px 12px;border-radius:100px;margin:14px 0}
-  .plan ul{list-style:none;padding:0;margin:10px 0 24px}
-  .plan li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink);padding:7px 0}
-  .plan li svg{width:17px;height:17px;flex-shrink:0;margin-top:3px;stroke:var(--teal);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-  .plan .btn{width:100%;justify-content:center}
-  .plans-note{margin-top:22px;font-size:13px;color:var(--muted);text-align:center}
+  /* ---------- camadas ---------- */
+  .layers{display:grid;gap:1px;background:var(--line);border-block:1px solid var(--line)}
+  .layer{background:var(--bg);display:grid;grid-template-columns:120px 1fr;gap:clamp(16px,4vw,48px);padding:clamp(26px,4vw,40px) 0;transition:background-color .3s var(--ease)}
+  .layer:hover{background:var(--bg-2)}
+  .layer .ix{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--teal)}
+  .layer h3{font-size:clamp(22px,3vw,30px);margin-bottom:10px}
+  .layer p{color:var(--muted);max-width:56ch;text-wrap:pretty}
 
-  /* Products (infra) */
-  .prod{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:46px}
-  .prod-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px}
-  .prod-card .stack{display:inline-flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-  .prod-card .chip{font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--teal-deep);background:#E6F7F8;border-radius:100px;padding:5px 12px}
-  .prod-card h3{font-size:21px;margin-bottom:10px;color:var(--ink)}
-  .prod-card p{color:var(--muted);font-size:15px}
-  .prod-card ul{list-style:none;padding:0;margin:16px 0 0}
-  .prod-card li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;padding:6px 0;color:var(--ink)}
-  .prod-card li b{color:var(--teal);font-weight:800}
+  /* ---------- serviços ---------- */
+  .svc-list{border-top:1px solid var(--line)}
+  .svc{display:grid;grid-template-columns:56px 1fr auto;align-items:start;gap:clamp(14px,3vw,28px);padding:26px 0;border-bottom:1px solid var(--line);transition:padding-inline .3s var(--ease),background-color .3s var(--ease)}
+  .svc:hover{background:var(--bg-2);padding-inline:16px}
+  .svc .ix{font-family:var(--mono);font-size:12px;color:var(--dim);padding-top:5px}
+  .svc h3{font-size:clamp(18px,2.2vw,22px);letter-spacing:-.02em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .svc p{color:var(--muted);font-size:15.5px;margin-top:7px;max-width:62ch;text-wrap:pretty}
+  .svc .arrow{align-self:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;opacity:0;transform:translateX(-6px);transition:opacity .3s var(--ease),transform .3s var(--ease),border-color .3s var(--ease)}
+  .svc:hover .arrow{opacity:1;transform:none;border-color:var(--teal)}
+  .svc .arrow svg{width:15px;height:15px;fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--dim)}
 
-  /* Segments */
-  .seg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:46px}
-  .seg{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px}
-  .seg .mk{width:6px;border-radius:100px;background:var(--grad);flex-shrink:0}
-  .seg h3{font-size:18px;margin-bottom:6px;color:var(--ink)}
-  .seg p{color:var(--muted);font-size:14.5px}
+  /* ---------- passos ---------- */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .step{background:var(--bg-2);padding:clamp(22px,3vw,30px);transition:background-color .3s var(--ease)}
+  .step:hover{background:var(--panel)}
+  .step .n{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.14em}
+  .step h3{font-size:18px;margin:14px 0 8px;letter-spacing:-.02em}
+  .step p{color:var(--muted);font-size:14.5px;text-wrap:pretty}
 
-  /* Why (dark) */
-  .why{background:var(--slate);color:#E8EEF0}
-  .why .eyebrow{color:var(--sky)}
-  .why h2{color:#fff}
-  .why .lead{color:#AEC0C6}
-  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
-  .why-card{padding:24px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.03)}
-  .why-card h3{font-size:18px;color:#fff;margin:0 0 8px}
-  .why-card p{color:#A9BCC2;font-size:14px}
+  /* ---------- planos ---------- */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+  .plan{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:14px;transition:transform .3s var(--ease),border-color .3s var(--ease)}
+  .plan:hover{transform:translateY(-4px);border-color:var(--line-2)}
+  .plan.feat{border-color:rgba(11,138,147,.4);background:linear-gradient(180deg,rgba(18,181,190,.07),var(--panel))}
+  .plan .badge{align-self:flex-start;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--teal);padding:4px 9px;border-radius:999px}
+  .plan .pname{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-.02em}
+  .plan .ptag{color:var(--muted);font-size:14.5px;min-height:3em;text-wrap:pretty}
+  .price{font-family:var(--display);font-size:16px;color:var(--dim);display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+  .price b{font-size:clamp(30px,4vw,38px);color:var(--ink);font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .price small{font-size:14px;color:var(--dim)}
+  .sla{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--teal);border:1px solid rgba(11,138,147,.3);border-radius:999px;padding:6px 11px;align-self:flex-start}
+  .plan ul{list-style:none;margin:6px 0 4px;padding:0;display:grid;gap:10px;font-size:15px;color:var(--muted)}
+  .plan li{display:flex;gap:10px;align-items:flex-start}
+  .plan li svg{width:16px;height:16px;flex:none;margin-top:4px;fill:none;stroke:var(--teal);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .plan .btn{margin-top:auto;width:100%}
+  .plans-note{margin-top:20px;color:var(--dim);font-size:14px;text-wrap:pretty}
 
-  /* CTA */
-  .cta{text-align:center;background:var(--bg-soft)}
-  .cta h2{font-size:clamp(28px,4vw,44px);max-width:20ch;margin:0 auto;color:var(--ink)}
-  .cta p{color:var(--muted);margin:18px auto 0;max-width:46ch;font-size:18px}
-  .cta-actions{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
-  .cta-contacts{margin-top:26px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap;font-size:15px;font-weight:600;color:var(--ink)}
-  .cta-contacts a{display:inline-flex;align-items:center;gap:8px}
-  .cta-contacts svg{width:17px;height:17px;stroke:var(--teal);fill:none;stroke-width:1.9}
+  /* ---------- infraestrutura ---------- */
+  .prod{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .prod-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;transition:border-color .3s var(--ease),transform .3s var(--ease)}
+  .prod-card:hover{border-color:var(--line-2);transform:translateY(-3px)}
+  .chips{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--sky);border:1px solid rgba(30,111,159,.28);border-radius:6px;padding:4px 9px}
+  .prod-card h3{font-size:clamp(19px,2.4vw,24px);margin-bottom:10px}
+  .prod-card p{color:var(--muted);font-size:15px;text-wrap:pretty}
+  .prod-card ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:9px;font-size:14.5px;color:var(--muted)}
+  .prod-card li{display:flex;gap:10px}
+  .prod-card li::before{content:"→";color:var(--teal);font-family:var(--mono);flex:none}
+  .notice{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(154,97,0,.28);background:rgba(154,97,0,.05);border-radius:12px;padding:16px 18px;margin-bottom:28px;color:var(--muted);font-size:14.5px;text-wrap:pretty}
+  .notice b{color:var(--warn);font-weight:600}
 
-  /* Footer */
-  footer{background:var(--slate-2);color:#9FB2B8;padding:52px 0 40px}
-  .foot{display:flex;justify-content:space-between;gap:34px;flex-wrap:wrap;align-items:flex-start}
-  .foot .brand{color:#fff}
-  .foot .brand b{color:var(--sky)}
-  .foot a{color:#9FB2B8;transition:color .2s}
-  .foot a:hover{color:#fff}
-  .foot-col h4{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#6E858C;margin:0 0 12px;font-weight:700}
-  .foot-col a,.foot-col p{display:block;font-size:15px;margin-bottom:9px}
-  .foot-legal{margin-top:34px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:#6E858C}
+  /* ---------- segmentos ---------- */
+  .segs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .seg{background:var(--bg-2);padding:clamp(22px,3vw,30px);transition:background-color .3s var(--ease)}
+  .seg:hover{background:var(--panel)}
+  .seg h3{font-size:19px;margin-bottom:8px;letter-spacing:-.02em}
+  .seg p{color:var(--muted);font-size:14.5px;text-wrap:pretty}
 
-  .wa-float{position:fixed;right:22px;bottom:22px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 28px -8px rgba(37,211,102,.7);transition:transform .2s var(--ease)}
-  .wa-float:hover{transform:scale(1.08)}
-  .wa-float svg{width:30px;height:30px;fill:#fff}
+  /* ---------- por que ---------- */
+  .why{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .why-card{border:1px solid var(--line);border-radius:14px;padding:24px;background:var(--bg-2);transition:border-color .3s var(--ease)}
+  .why-card:hover{border-color:var(--teal)}
+  .why-card h3{font-size:17px;margin-bottom:8px;letter-spacing:-.02em}
+  .why-card p{color:var(--muted);font-size:14.5px;text-wrap:pretty}
 
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  /* ---------- cta ---------- */
+  .cta{text-align:center}
+  .cta h2{font-size:clamp(30px,5vw,54px)}
+  .cta p{color:var(--muted);margin:18px auto 0;max-width:52ch;font-size:clamp(16px,2vw,19px);text-wrap:pretty}
+  .cta-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .cta-contacts{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 28px;margin-top:30px;font-family:var(--mono);font-size:13.5px;color:var(--muted)}
+  .cta-contacts a{display:inline-flex;align-items:center;gap:9px;padding-block:4px;transition:color .2s var(--ease)}
+  .cta-contacts a:hover{color:var(--teal)}
+  .cta-contacts svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- rodapé ---------- */
+  footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 calc(40px + env(safe-area-inset-bottom,0px))}
+  .foot{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:36px}
+  .foot p{color:var(--dim);font-size:14.5px;margin-top:12px;max-width:34ch;text-wrap:pretty}
+  .foot h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 14px;font-weight:400}
+  .foot-col{display:flex;flex-direction:column;gap:4px;font-size:14.5px;color:var(--muted)}
+  .foot-col a{padding-block:5px}
+  .foot-col a{transition:color .2s var(--ease)}
+  .foot-col a:hover{color:var(--teal)}
+  .foot-legal{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+  .nowrap{white-space:nowrap}
+
+  /* ---------- botão flutuante ---------- */
+  .wa{
+    position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:55;
+    width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;
+    box-shadow:0 14px 34px -12px rgba(37,211,102,.55);transition:transform .25s var(--ease)
+  }
+  .wa:hover{transform:scale(1.07)}
+  .wa svg{width:29px;height:29px;fill:#fff}
+
+  /* ---------- entrada no scroll ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:var(--d,0ms)}
   .reveal.in{opacity:1;transform:none}
 
-  @media (max-width:920px){
+  @media (max-width:960px){
     .hero-grid{grid-template-columns:1fr;gap:44px}
-    .hero{padding:56px 0 68px}
-    .pillars,.svc-grid,.steps,.plans,.prod,.why-grid{grid-template-columns:1fr 1fr}
-    .seg-grid{grid-template-columns:1fr}
-    section{padding:64px 0}
-    .nav-links{display:none}
-    .menu-btn{display:block}
-    .nav-links.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:#fff;border-bottom:1px solid var(--line);padding:18px 24px;gap:16px}
+    .steps,.why{grid-template-columns:1fr 1fr}
+    .plans,.prod{grid-template-columns:1fr}
+    .foot{grid-template-columns:1fr 1fr}
+    .nav-links{
+      display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:18px;
+      background:var(--bg-2);border-bottom:1px solid var(--line);padding:22px var(--pad) 26px;font-size:17px;
+    }
+    .nav-links.open{display:flex}
+    .menu-btn{display:flex}
+    .nav-right .btn{display:none}
   }
-  @media (max-width:600px){
-    .pillars,.svc-grid,.steps,.plans,.prod,.why-grid{grid-template-columns:1fr}
-    .hero-sub{max-width:none}
+  @media (max-width:620px){
+    body{font-size:16px}
+    .strip,.segs{grid-template-columns:1fr}
+    .steps,.why{grid-template-columns:1fr}
+    .layer{grid-template-columns:1fr;gap:10px}
+    .svc{grid-template-columns:34px 1fr;gap:14px}
+    .svc .arrow{display:none}
+    .foot{grid-template-columns:1fr;gap:28px}
   }
-  @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}.reveal{transition:none;opacity:1;transform:none}.pulse,.spark i{animation:none}}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+    .reveal{opacity:1;transform:none}
+    .spark i{transform:scaleY(1)}
+    .hero h1 em::after{transform:scaleX(1)}
+  }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="progress" aria-hidden="true"></div>
+
+<!-- TOPO -->
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top">
-      <svg class="mark" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="dt1" x1="8" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#12B5BE"/><stop offset="1" stop-color="#46C5F5"/></linearGradient></defs><rect x="12" y="9.5" width="6" height="29" rx="3" fill="url(#dt1)"/><path d="M15.5 12.5 C 33 12.5 39.5 17.5 39.5 24 C 39.5 30.5 33 35.5 15.5 35.5" fill="none" stroke="url(#dt1)" stroke-width="6" stroke-linecap="round"/><circle cx="39.5" cy="24" r="3.4" fill="#46C5F5"/></svg>
-      Duarttes<b>Tech</b>
+    <a class="brand" href="#topo" aria-label="Duarttes Tech, início">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><defs><linearGradient id="m1" x1="8" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#12B5BE"/><stop offset="1" stop-color="#0B8A93"/></linearGradient></defs><rect x="12" y="9.5" width="6" height="29" rx="3" fill="url(#m1)"/><path d="M15.5 12.5C33 12.5 39.5 17.5 39.5 24S33 35.5 15.5 35.5" fill="none" stroke="url(#m1)" stroke-width="6" stroke-linecap="round"/><circle cx="39.5" cy="24" r="3.4" fill="#12B5BE"/></svg>
+      <span translate="no">Duarttes Tech</span>
     </a>
-    <nav class="nav-links" id="navlinks">
+    <nav class="nav-links" id="navlinks" aria-label="Principal">
       <a href="#servicos">Serviços</a>
       <a href="#planos">Planos</a>
       <a href="#infra">Infraestrutura</a>
       <a href="#contato">Contato</a>
     </nav>
-    <div class="nav-cta">
+    <div class="nav-right">
       <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Quero%20minha%20auditoria%20gratuita" target="_blank" rel="noopener">Auditoria gratuita</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="navlinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
 
-<main id="top">
+<main id="conteudo">
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="topo">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Infraestrutura digital</span>
-      <h1>Tecnologia que coloca sua empresa no ar — e a mantém <span class="grad-text">funcionando</span>.</h1>
-      <p class="hero-sub">A Duarttes Tech constrói, opera e monitora a presença digital do seu negócio. Do site ao servidor, com suporte de verdade.</p>
+      <p class="mono">Americana/SP · construir <b>·</b> operar <b>·</b> monitorar</p>
+      <h1 style="margin-top:18px">Seu negócio some às&nbsp;3h e você só descobre <em>na segunda</em>.</h1>
+      <p class="hero-sub">A Duarttes Tech constrói, opera e monitora a presença digital da sua empresa. Do site ao servidor, com suporte de verdade e prazo por escrito.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Quero%20minha%20auditoria%20gratuita" target="_blank" rel="noopener">Solicitar auditoria gratuita</a>
+        <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Quero%20minha%20auditoria%20gratuita" target="_blank" rel="noopener">
+          Solicitar auditoria gratuita
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
         <a class="btn btn-ghost" href="#planos">Ver planos</a>
       </div>
-      <p class="hero-trust"><b>Sites</b> · <b>Google</b> · <b>WhatsApp</b> · <b>Suporte por SLA</b></p>
+      <p class="hero-trust"><span>Sites</span><span>Google</span><span>WhatsApp</span><span>Suporte com SLA</span></p>
     </div>
 
-    <div class="hcard reveal" aria-label="Exemplo de auditoria gratuita">
-      <div class="hc-top"><span class="hc-title">auditoria · sua empresa</span><span class="hc-live">exemplo</span></div>
-      <div class="hc-row"><span class="hc-svc"><span class="hc-dot"></span>Site próprio</span><span class="hc-val"><b>não encontrado</b></span></div>
-      <div class="hc-row"><span class="hc-svc"><span class="hc-dot"></span>Perfil no Google</span><span class="hc-val">sem <b>horário</b> e sem <b>fotos</b></span></div>
-      <div class="hc-row"><span class="hc-svc"><span class="hc-dot"></span>Avaliações</span><span class="hc-val"><b>3</b> — poucas</span></div>
-      <div class="hc-row"><span class="hc-svc"><span class="hc-dot"></span>"aberto agora perto de mim"</span><span class="hc-val"><b>não aparece</b></span></div>
-      <div class="spark" aria-hidden="true"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.4s"></i><i style="animation-delay:.5s"></i><i style="animation-delay:.6s"></i><i style="animation-delay:.7s"></i><i style="animation-delay:.8s"></i><i style="animation-delay:.9s"></i><i style="animation-delay:1s"></i><i style="animation-delay:1.1s"></i><i style="animation-delay:1.2s"></i><i style="animation-delay:1.3s"></i></div>
-      <div class="hc-foot">é isso que a auditoria gratuita mostra do seu negócio</div>
+    <div class="panel reveal" role="group" aria-label="Exemplo do que a auditoria gratuita mostra">
+      <div class="panel-top">
+        <span class="t" translate="no">auditoria · seu negócio</span>
+        <span class="pill">exemplo</span>
+      </div>
+      <div class="prow"><span class="k">Site próprio</span><span class="v"><b>não encontrado</b></span></div>
+      <div class="prow"><span class="k">Perfil no Google</span><span class="v">sem <b>horário</b>, sem <b>fotos</b></span></div>
+      <div class="prow"><span class="k">Avaliações</span><span class="v"><b>3</b> — poucas</span></div>
+      <div class="prow"><span class="k">“aberto agora perto de mim”</span><span class="v"><b>não aparece</b></span></div>
+      <div class="spark" aria-hidden="true">
+        <i style="--h:34%;transition-delay:.05s"></i><i style="--h:52%;transition-delay:.1s"></i><i style="--h:41%;transition-delay:.15s"></i>
+        <i style="--h:68%;transition-delay:.2s"></i><i style="--h:57%;transition-delay:.25s"></i><i style="--h:82%;transition-delay:.3s"></i>
+        <i style="--h:63%;transition-delay:.35s"></i><i style="--h:91%;transition-delay:.4s"></i><i style="--h:74%;transition-delay:.45s"></i>
+        <i style="--h:100%;transition-delay:.5s"></i><i style="--h:79%;transition-delay:.55s"></i><i style="--h:88%;transition-delay:.6s"></i>
+      </div>
+      <p class="panel-foot">É isso que a auditoria gratuita mostra do seu negócio — antes de você contratar qualquer coisa.</p>
     </div>
   </div>
 </section>
 
-<!-- PILLARS -->
-<section class="soft" id="como">
+<!-- NÚMEROS -->
+<section style="padding-block:clamp(40px,6vw,64px);border-top:0">
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">Como funciona</span>
+    <div class="strip reveal">
+      <div><div class="n"><span class="count" data-to="48">48</span>h</div><p class="l">Da aprovação ao site no ar, no plano Essencial.</p></div>
+      <div><div class="n"><span class="count" data-to="4">4</span> h úteis</div><p class="l">O SLA mais rápido da tabela, no plano Gestão.</p></div>
+      <div><div class="n">1 pessoa</div><p class="l">Quem desenvolve é quem atende. Sem intermediário.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMADAS -->
+<section id="como">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="mono">Como funciona</p>
       <h2>Três camadas. Sua empresa entra onde precisa.</h2>
     </div>
-    <div class="pillars">
-      <div class="pillar reveal"><span class="ix">01 · CONSTRUIR</span><h3>Presença</h3><p>Site, WhatsApp automático, agendamento e Google — a porta de entrada dos seus clientes.</p></div>
-      <div class="pillar reveal"><span class="ix">02 · OPERAR</span><h3>Suporte gerenciado</h3><p>Portal de chamados com prioridade por plano. Cada solicitação atendida na ordem certa, com prazo garantido.</p></div>
-      <div class="pillar reveal"><span class="ix">03 · MONITORAR</span><h3>Infraestrutura</h3><p>Monitoramento 24/7 com alertas que avisam antes de o problema virar prejuízo.</p></div>
+    <div class="layers">
+      <div class="layer reveal">
+        <p class="ix">01 · CONSTRUIR</p>
+        <div>
+          <h3>Presença</h3>
+          <p>Site, WhatsApp, agendamento e Google — a porta de entrada dos seus clientes, montada para ser encontrada.</p>
+        </div>
+      </div>
+      <div class="layer reveal" style="--d:80ms">
+        <p class="ix">02 · OPERAR</p>
+        <div>
+          <h3>Suporte gerenciado</h3>
+          <p>Portal de chamados com prioridade por plano. Cada solicitação atendida na ordem certa, com prazo garantido.</p>
+        </div>
+      </div>
+      <div class="layer reveal" style="--d:160ms">
+        <p class="ix">03 · MONITORAR</p>
+        <div>
+          <h3>Infraestrutura</h3>
+          <p>Monitoramento 24/7 com alertas que avisam antes de o problema virar prejuízo.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVIÇOS -->
 <section id="servicos">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Serviços</span>
+      <p class="mono">Serviços</p>
       <h2>A presença que transforma quem procura em cliente.</h2>
       <p class="lead">A empresa escolhe só o que precisa. Sem pacote inchado.</p>
     </div>
-    <div class="svc-grid">
-      <div class="svc reveal"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M9 21h6"/></svg></div><h3>Sites e landing pages</h3><p>Páginas rápidas e responsivas que aparecem no Google e transformam visitas em contato.</p></div>
-      <div class="svc reveal breve"><div class="ico"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></div><span class="tag-breve">em breve</span><h3>Chatbot no WhatsApp</h3><p>Atendimento automático 24 horas: responde dúvidas e qualifica clientes mesmo fora do expediente.</p></div>
-      <div class="svc reveal breve"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4M9 15l2 2 4-4"/></svg></div><span class="tag-breve">em breve</span><h3>Agendamento online</h3><p>Clientes marcam sozinhos, com confirmação automática. Menos faltas, agenda cheia.</p></div>
-      <div class="svc reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h14l-1.2 8.5a2 2 0 0 1-2 1.7H8.2a2 2 0 0 1-2-1.7L5 4Z"/><path d="M9 18a1.6 1.6 0 1 0 0 3M17 18a1.6 1.6 0 1 0 0 3M9 8h6"/></svg></div><h3>Cardápio e pedidos</h3><p>Cardápio digital e pedidos diretos, sem a taxa dos aplicativos de delivery.</p></div>
-      <div class="svc reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7Z"/><circle cx="12" cy="9" r="2.4"/></svg></div><h3>Google e avaliações</h3><p>Perfil completo e bem posicionado no Google, com avaliações gerenciadas.</p></div>
-      <div class="svc reveal breve"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 9 4.6h.1A1.6 1.6 0 0 0 11 3.1V3a2 2 0 1 1 4 0v.1A1.6 1.6 0 0 0 19 4.6l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.6 1.6 0 0 0 21 11h.1a2 2 0 1 1 0 4H21a1.6 1.6 0 0 0-1.6 1Z"/></svg></div><span class="tag-breve">em breve</span><h3>Automações e integrações</h3><p>WhatsApp, agenda, planilhas e sistemas conectados, trabalhando sozinhos.</p></div>
+    <div class="svc-list">
+      <a class="svc reveal" href="https://wa.me/5519994896116?text=Quero%20falar%20sobre%20site%20e%20landing%20page" target="_blank" rel="noopener">
+        <span class="ix">01</span>
+        <div>
+          <h3>Sites e landing pages</h3>
+          <p>Páginas rápidas e responsivas que aparecem no Google e transformam visitas em contato.</p>
+        </div>
+        <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="svc reveal" href="https://wa.me/5519994896116?text=Quero%20falar%20sobre%20card%C3%A1pio%20digital%20e%20pedidos" target="_blank" rel="noopener">
+        <span class="ix">02</span>
+        <div>
+          <h3>Cardápio e pedidos</h3>
+          <p>Cardápio digital e pedidos diretos, sem a taxa dos aplicativos de delivery.</p>
+        </div>
+        <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="svc reveal" href="https://wa.me/5519994896116?text=Quero%20falar%20sobre%20Google%20e%20avalia%C3%A7%C3%B5es" target="_blank" rel="noopener">
+        <span class="ix">03</span>
+        <div>
+          <h3>Google e avaliações</h3>
+          <p>Perfil completo e bem posicionado no Google, com avaliações gerenciadas.</p>
+        </div>
+        <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <div class="svc reveal">
+        <span class="ix">04</span>
+        <div>
+          <h3>Chatbot no WhatsApp <span class="tag">em breve</span></h3>
+          <p>Atendimento automático 24 horas: responde dúvidas e qualifica clientes mesmo fora do expediente.</p>
+        </div>
+        <span></span>
+      </div>
+      <div class="svc reveal">
+        <span class="ix">05</span>
+        <div>
+          <h3>Agendamento online <span class="tag">em breve</span></h3>
+          <p>Clientes marcam sozinhos, com confirmação automática. Menos faltas, agenda cheia.</p>
+        </div>
+        <span></span>
+      </div>
+      <div class="svc reveal">
+        <span class="ix">06</span>
+        <div>
+          <h3>Automações e integrações <span class="tag">em breve</span></h3>
+          <p>WhatsApp, agenda, planilhas e sistemas conectados, trabalhando sozinhos.</p>
+        </div>
+        <span></span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STEPS -->
-<section class="soft">
+<!-- PASSOS -->
+<section>
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">Do início ao ar</span>
+    <div class="sec-head reveal">
+      <p class="mono">Do início ao ar</p>
       <h2>Direto, sem projeto que se arrasta por meses.</h2>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="n">01</div><h3>Auditoria gratuita</h3><p>Uma análise da sua presença digital com pontos claros de melhoria. Sem compromisso.</p></div>
-      <div class="step reveal"><div class="n">02</div><h3>Proposta objetiva</h3><p>Escopo simples, preço fechado e prazo definido. Sem mensalidade escondida.</p></div>
-      <div class="step reveal"><div class="n">03</div><h3>Desenvolvimento</h3><p>Construção acompanhada de perto, com ajustes até ficar do seu jeito.</p></div>
-      <div class="step reveal"><div class="n">04</div><h3>No ar e monitorado</h3><p>Publicação, treinamento e suporte contínuo.</p></div>
+      <div class="step reveal"><p class="n">01</p><h3>Auditoria gratuita</h3><p>Uma análise da sua presença digital com pontos claros de melhoria. Sem compromisso.</p></div>
+      <div class="step reveal" style="--d:70ms"><p class="n">02</p><h3>Proposta objetiva</h3><p>Escopo simples, preço fechado e prazo definido. Sem mensalidade escondida.</p></div>
+      <div class="step reveal" style="--d:140ms"><p class="n">03</p><h3>Desenvolvimento</h3><p>Construção acompanhada de perto, com ajustes até ficar do seu jeito.</p></div>
+      <div class="step reveal" style="--d:210ms"><p class="n">04</p><h3>No ar e monitorado</h3><p>Publicação, treinamento e suporte contínuo.</p></div>
     </div>
   </div>
 </section>
 
-<!-- PLANS -->
+<!-- PLANOS -->
 <section id="planos">
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">Planos</span>
+    <div class="sec-head reveal">
+      <p class="mono">Planos</p>
       <h2>Assinaturas com prioridade de verdade.</h2>
       <p class="lead">Cada plano define a prioridade na fila de chamados. Quanto mais alto, mais rápido o atendimento.</p>
     </div>
     <div class="plans">
       <div class="plan reveal">
-        <div class="pname">Essencial</div>
-        <div class="ptag">Para estar no ar, seguro e bem cuidado.</div>
-        <div class="price">a partir de <b>R$ 149</b><small>/mês</small></div>
-        <div class="sla">SLA · resposta em até 2 dias úteis</div>
+        <p class="pname">Essencial</p>
+        <p class="ptag">Para estar no ar, seguro e bem cuidado.</p>
+        <p class="price">a partir de <b>R$&nbsp;149</b><small>/mês</small></p>
+        <p class="sla">SLA · resposta em até 2 dias úteis</p>
         <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Site e presença no ar</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Suporte por e-mail</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>1 ajuste por mês</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Hospedagem monitorada</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Site e presença no ar</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Suporte por e-mail</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>1 ajuste por mês</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Hospedagem monitorada</li>
         </ul>
-        <a class="btn btn-ghost" href="https://wa.me/5519994896116?text=Tenho%20interesse%20no%20plano%20Essencial" target="_blank" rel="noopener">Começar</a>
+        <a class="btn btn-ghost" href="https://wa.me/5519994896116?text=Tenho%20interesse%20no%20plano%20Essencial" target="_blank" rel="noopener">Começar no Essencial</a>
       </div>
 
-      <div class="plan feat reveal">
+      <div class="plan feat reveal" style="--d:80ms">
         <span class="badge">Mais escolhido</span>
-        <div class="pname">Pro</div>
-        <div class="ptag">Para negócios que dependem do digital no dia a dia.</div>
-        <div class="price">a partir de <b>R$ 449</b><small>/mês</small></div>
-        <div class="sla">SLA · resposta em até 1 dia útil</div>
+        <p class="pname">Pro</p>
+        <p class="ptag">Para negócios que dependem do digital no dia a dia.</p>
+        <p class="price">a partir de <b>R$&nbsp;449</b><small>/mês</small></p>
+        <p class="sla">SLA · resposta em até 1 dia útil</p>
         <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Tudo do Essencial</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Portal de chamados (GLPI)</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Prioridade na fila</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Ajustes recorrentes</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tudo do Essencial</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Portal de chamados (GLPI)</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Prioridade na fila</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Ajustes recorrentes</li>
         </ul>
-        <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Tenho%20interesse%20no%20plano%20Pro" target="_blank" rel="noopener">Assinar Pro</a>
+        <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Tenho%20interesse%20no%20plano%20Pro" target="_blank" rel="noopener">Assinar o Pro</a>
       </div>
 
-      <div class="plan reveal">
-        <div class="pname">Gestão</div>
-        <div class="ptag">Para quem não pode ficar fora do ar. <b>Monitoramento em implantação.</b></div>
-        <div class="price">a partir de <b>R$ 990</b><small>/mês</small></div>
-        <div class="sla">SLA · resposta em até 4 horas úteis</div>
+      <div class="plan reveal" style="--d:160ms">
+        <p class="pname">Gestão</p>
+        <p class="ptag">Para quem não pode ficar fora do ar. <b>Monitoramento em implantação.</b></p>
+        <p class="price">a partir de <b>R$&nbsp;990</b><small>/mês</small></p>
+        <p class="sla">SLA · resposta em até 4 horas úteis</p>
         <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Tudo do Pro</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Monitoramento 24/7 (Zabbix + Grafana)</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Alertas proativos</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Prioridade máxima</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tudo do Pro</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Monitoramento 24/7 (Zabbix + Grafana)</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Alertas proativos</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Prioridade máxima</li>
         </ul>
-        <a class="btn btn-ghost" href="https://wa.me/5519994896116?text=Quero%20saber%20mais%20sobre%20o%20plano%20Gest%C3%A3o" target="_blank" rel="noopener">Falar sobre Gestão</a>
+        <a class="btn btn-ghost" href="https://wa.me/5519994896116?text=Quero%20saber%20mais%20sobre%20o%20plano%20Gest%C3%A3o" target="_blank" rel="noopener">Falar sobre o Gestão</a>
       </div>
     </div>
     <p class="plans-note">Valores de referência — o plano final é ajustado ao porte e à necessidade de cada empresa.</p>
   </div>
 </section>
 
-<!-- INFRA / PRODUCTS -->
-<section class="soft" id="infra">
+<!-- INFRAESTRUTURA -->
+<section id="infra">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Infraestrutura e monitoramento · em implantação</span>
+      <p class="mono">Infraestrutura e monitoramento</p>
       <h2>Estrutura de gente grande, sem time de TI próprio.</h2>
       <p class="lead">Para empresas, clínicas e indústrias que já dependem de sistemas — e não podem correr risco.</p>
-      <p class="lead" style="font-size:15px;margin-top:10px"><b>Em implantação.</b> Estas duas frentes entram no plano Gestão e estão sendo montadas — fale com a gente para entrar na lista e acompanhar o cronograma.</p>
+    </div>
+    <div class="notice reveal">
+      <span aria-hidden="true">⚠</span>
+      <p><b>Em implantação.</b> Estas duas frentes entram no plano Gestão e estão sendo montadas. Fale com a gente para entrar na lista e acompanhar o cronograma.</p>
     </div>
     <div class="prod">
       <div class="prod-card reveal">
-        <div class="stack"><span class="chip">GLPI</span><span class="chip">ITSM</span></div>
+        <div class="chips"><span class="chip" translate="no">GLPI</span><span class="chip" translate="no">ITSM</span></div>
         <h3>Central de chamados e ativos</h3>
-        <p>A Duarttes Tech implanta um help desk profissional: cada solicitação vira chamado com prazo, histórico e responsável. Nada mais se perde no WhatsApp.</p>
+        <p>Cada solicitação vira chamado com prazo, histórico e responsável. Nada mais se perde no WhatsApp.</p>
         <ul>
-          <li><b>»</b> Abertura e acompanhamento de chamados por SLA</li>
-          <li><b>»</b> Inventário de equipamentos, licenças e garantias</li>
-          <li><b>»</b> Relatórios do que quebra, quanto custa e onde melhorar</li>
+          <li>Abertura e acompanhamento de chamados por SLA</li>
+          <li>Inventário de equipamentos, licenças e garantias</li>
+          <li>Relatórios do que quebra, quanto custa e onde melhorar</li>
         </ul>
       </div>
-      <div class="prod-card reveal">
-        <div class="stack"><span class="chip">Zabbix</span><span class="chip">Grafana</span></div>
+      <div class="prod-card reveal" style="--d:80ms">
+        <div class="chips"><span class="chip" translate="no">Zabbix</span><span class="chip" translate="no">Grafana</span></div>
         <h3>Monitoramento e painéis 24/7</h3>
         <p>Servidores, sites e serviços vigiados o tempo todo. Se algo desacelera ou cai, o alerta chega antes de o cliente perceber.</p>
         <ul>
-          <li><b>»</b> Uptime, desempenho e capacidade em tempo real</li>
-          <li><b>»</b> Alertas automáticos por WhatsApp, e-mail ou Telegram</li>
-          <li><b>»</b> Painéis sob medida para o seu negócio</li>
+          <li>Uptime, desempenho e capacidade em tempo real</li>
+          <li>Alertas automáticos por WhatsApp, e-mail ou Telegram</li>
+          <li>Painéis sob medida para o seu negócio</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SEGMENTS -->
+<!-- SEGMENTOS -->
 <section id="segmentos">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Para o seu ramo</span>
+      <p class="mono">Para o seu ramo</p>
       <h2>A solução acompanha o tipo de negócio.</h2>
     </div>
-    <div class="seg-grid">
-      <div class="seg reveal"><div class="mk"></div><div><h3>Comércio e varejo</h3><p>Lojas, concessionárias e revendas: catálogo online, captação de lead e WhatsApp que responde na hora.</p></div></div>
-      <div class="seg reveal"><div class="mk"></div><div><h3>Serviços e agendamento</h3><p>Oficinas, salões, clínicas de estética e consultórios: agenda online com confirmação e lembrete automático.</p></div></div>
-      <div class="seg reveal"><div class="mk"></div><div><h3>Alimentação</h3><p>Restaurantes, bares e delivery: cardápio e pedido próprio, sem pagar caro pro aplicativo.</p></div></div>
-      <div class="seg reveal"><div class="mk"></div><div><h3>Saúde e bem-estar</h3><p>Clínicas, cuidado ao idoso e academias: presença no Google, agendamento e monitoramento com suporte por SLA.</p></div></div>
+    <div class="segs">
+      <div class="seg reveal"><h3>Comércio e varejo</h3><p>Lojas, concessionárias e revendas: catálogo online, captação de lead e WhatsApp que responde na hora.</p></div>
+      <div class="seg reveal" style="--d:60ms"><h3>Serviços e agendamento</h3><p>Oficinas, salões, clínicas de estética e consultórios: agenda online com confirmação e lembrete automático.</p></div>
+      <div class="seg reveal" style="--d:120ms"><h3>Alimentação</h3><p>Restaurantes, bares e delivery: cardápio e pedido próprio, sem pagar caro para o aplicativo.</p></div>
+      <div class="seg reveal" style="--d:180ms"><h3>Saúde e bem-estar</h3><p>Clínicas, cuidado ao idoso e academias: presença no Google, agendamento e suporte com SLA.</p></div>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section class="why" id="empresa">
+<!-- POR QUE -->
+<section id="empresa">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">A Duarttes Tech</span>
+      <p class="mono">A Duarttes Tech</p>
       <h2>Tecnologia de gente grande, no tamanho do seu negócio.</h2>
       <p class="lead">Sem intermediário, sem contrato que prende, sem promessa que não se cumpre.</p>
     </div>
-    <div class="why-grid">
+    <div class="why">
       <div class="why-card reveal"><h3>Especialista, não agência</h3><p>Quem desenvolve é quem atende. Tecnologia de verdade, sem terceirização.</p></div>
-      <div class="why-card reveal"><h3>Presencial ou remoto</h3><p>Atendimento pessoal ou 100% à distância, como for melhor para a sua empresa.</p></div>
-      <div class="why-card reveal"><h3>Suporte contínuo</h3><p>A entrega é só o começo. A operação é cuidada no longo prazo.</p></div>
-      <div class="why-card reveal"><h3>Sob medida</h3><p>Soluções no tamanho do seu negócio, sem contratos que prendem.</p></div>
+      <div class="why-card reveal" style="--d:60ms"><h3>Presencial ou remoto</h3><p>Atendimento pessoal ou 100% à distância, como for melhor para a sua empresa.</p></div>
+      <div class="why-card reveal" style="--d:120ms"><h3>Suporte contínuo</h3><p>A entrega é só o começo. A operação é cuidada no longo prazo.</p></div>
+      <div class="why-card reveal" style="--d:180ms"><h3>Sob medida</h3><p>Soluções no tamanho do seu negócio, sem contratos que prendem.</p></div>
     </div>
   </div>
 </section>
 
-<!-- CTA / CONTATO -->
+<!-- CONTATO -->
 <section class="cta" id="contato">
-  <div class="wrap">
-    <div class="reveal">
-      <h2>Vamos colocar sua empresa no lugar certo?</h2>
-      <p>Solicite uma auditoria gratuita. Em poucos minutos você recebe um diagnóstico claro do que dá para melhorar.</p>
-      <div class="cta-actions">
-        <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Quero%20minha%20auditoria%20gratuita" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-        <a class="btn btn-ghost" href="mailto:contato@duarttestech.com">Enviar e-mail</a>
-      </div>
-      <div class="cta-contacts">
-        <a href="https://wa.me/5519994896116?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Duarttes%20Tech" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>(19) 99489-6116</a>
-        <a href="mailto:contato@duarttestech.com"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>contato@duarttestech.com</a>
-      </div>
+  <div class="wrap reveal">
+    <h2>Vamos colocar sua empresa no lugar certo?</h2>
+    <p>Solicite uma auditoria gratuita. Em poucos minutos você recebe um diagnóstico claro do que dá para melhorar.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="https://wa.me/5519994896116?text=Quero%20minha%20auditoria%20gratuita" target="_blank" rel="noopener">
+        Chamar no WhatsApp
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="mailto:contato@duarttestech.com">Enviar e-mail</a>
+    </div>
+    <div class="cta-contacts">
+      <a href="https://wa.me/5519994896116?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Duarttes%20Tech" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+        <span class="nowrap">(19)&nbsp;99489-6116</span>
+      </a>
+      <a href="mailto:contato@duarttestech.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        contato@duarttestech.com
+      </a>
     </div>
   </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
+<!-- RODAPÉ -->
 <footer>
   <div class="wrap">
     <div class="foot">
-      <div style="max-width:32ch">
-        <div class="brand" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px">
-          <svg class="mark" style="width:26px;height:26px" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="dt2" x1="8" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#12B5BE"/><stop offset="1" stop-color="#46C5F5"/></linearGradient></defs><rect x="12" y="9.5" width="6" height="29" rx="3" fill="url(#dt2)"/><path d="M15.5 12.5 C 33 12.5 39.5 17.5 39.5 24 C 39.5 30.5 33 35.5 15.5 35.5" fill="none" stroke="url(#dt2)" stroke-width="6" stroke-linecap="round"/><circle cx="39.5" cy="24" r="3.4" fill="#46C5F5"/></svg>
-          Duarttes<b>Tech</b>
-        </div>
-        <p style="margin-top:12px;font-size:15px">Construir, operar e monitorar a infraestrutura digital do seu negócio.</p>
+      <div>
+        <a class="brand" href="#topo">
+          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><defs><linearGradient id="m2" x1="8" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse"><stop stop-color="#12B5BE"/><stop offset="1" stop-color="#0B8A93"/></linearGradient></defs><rect x="12" y="9.5" width="6" height="29" rx="3" fill="url(#m2)"/><path d="M15.5 12.5C33 12.5 39.5 17.5 39.5 24S33 35.5 15.5 35.5" fill="none" stroke="url(#m2)" stroke-width="6" stroke-linecap="round"/><circle cx="39.5" cy="24" r="3.4" fill="#12B5BE"/></svg>
+          <span translate="no">Duarttes Tech</span>
+        </a>
+        <p>Construir, operar e monitorar a infraestrutura digital do seu negócio.</p>
       </div>
-      <div class="foot-col">
+      <div>
         <h4>Navegação</h4>
-        <a href="#servicos">Serviços</a>
-        <a href="#planos">Planos</a>
-        <a href="#infra">Infraestrutura</a>
-        <a href="/privacidade.html">Privacidade</a>
+        <div class="foot-col">
+          <a href="#servicos">Serviços</a>
+          <a href="#planos">Planos</a>
+          <a href="#infra">Infraestrutura</a>
+          <a href="/privacidade.html">Privacidade</a>
+        </div>
       </div>
-      <div class="foot-col">
+      <div>
         <h4>Contato</h4>
-        <a href="https://wa.me/5519994896116?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Duarttes%20Tech" target="_blank" rel="noopener">WhatsApp (19) 99489-6116</a>
-        <a href="mailto:contato@duarttestech.com">contato@duarttestech.com</a>
-        <a href="https://instagram.com/duarttes.tech" target="_blank" rel="noopener">@duarttes.tech</a>
+        <div class="foot-col">
+          <a href="https://wa.me/5519994896116?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Duarttes%20Tech" target="_blank" rel="noopener">WhatsApp <span class="nowrap">(19)&nbsp;99489-6116</span></a>
+          <a href="mailto:contato@duarttestech.com">contato@duarttestech.com</a>
+          <a href="https://instagram.com/duarttes.tech" target="_blank" rel="noopener">@duarttes.tech</a>
+        </div>
       </div>
     </div>
-    <p class="foot-legal">© <span id="yr"></span> Duarttes Tech · <span translate="no" style="white-space:nowrap">CNPJ&nbsp;69.028.376/0001-00</span></p>
+    <p class="foot-legal">
+      <span>© <span id="ano">2026</span> <span translate="no">Duarttes Tech</span></span>
+      <span translate="no" class="nowrap">CNPJ&nbsp;69.028.376/0001-00</span>
+      <span>Americana/SP</span>
+    </p>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/5519994896116?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Duarttes%20Tech" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.4 1.7 1 .8 1.7 1.1 1.9 1.2.2.1.4.1.5-.1.1-.2.6-.7.8-.9.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
+<a class="wa" href="https://wa.me/5519994896116?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Duarttes%20Tech" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.4 1.7 1 .8 1.7 1.1 1.9 1.2.2.1.4.1.5-.1.1-.2.6-.7.8-.9.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
 </a>
 
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  const menuBtn=document.getElementById('menuBtn'),navlinks=document.getElementById('navlinks');
-  menuBtn.addEventListener('click',()=>navlinks.classList.toggle('open'));
-  navlinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlinks.classList.remove('open')));
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // menu do celular
+  const btn = document.getElementById('menuBtn');
+  const links = document.getElementById('navlinks');
+  btn.addEventListener('click', () => {
+    const aberto = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(aberto));
+    btn.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // entrada no scroll, uma vez por elemento
+  const alvos = document.querySelectorAll('.reveal');
+  if (semMovimento || !('IntersectionObserver' in window)) {
+    alvos.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entradas) => {
+      entradas.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        e.target.querySelectorAll('.count').forEach(contar);
+      });
+    }, { threshold: .15, rootMargin: '0px 0px -8% 0px' });
+    alvos.forEach(el => io.observe(el));
+  }
+
+  // números que contam até o valor, só uma vez
+  function contar(el) {
+    const destino = Number(el.dataset.to);
+    if (!destino || semMovimento) return;
+    const inicio = performance.now(), duracao = 900;
+    const passo = (agora) => {
+      const t = Math.min(1, (agora - inicio) / duracao);
+      el.textContent = Math.round(destino * (1 - Math.pow(1 - t, 3)));
+      if (t < 1) requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+  }
+
+  // fallback da barra de progresso onde scroll() não existe
+  if (!CSS.supports('animation-timeline: scroll()') && !semMovimento) {
+    const barra = document.querySelector('.progress');
+    const atualizar = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      barra.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    };
+    addEventListener('scroll', atualizar, { passive: true });
+    atualizar();
+  }
 </script>
 </body>
 </html>
